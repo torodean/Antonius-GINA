@@ -38,12 +38,14 @@ SOURCES += \
         main.cpp \
     gina.cpp \
     ginagraph.cpp \
-    ginaelements.cpp
+    ginaelements.cpp \
+    ginafit.cpp
 
 HEADERS += \
     gina.h \
     ginagraph.h \
-    ginaelements.h
+    ginaelements.h \
+    ginafit.h
 
 FORMS += \
     gina.ui

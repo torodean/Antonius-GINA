@@ -1,0 +1,297 @@
+ \documentclass[11pt]{article}
+
+%%% These are some packages that are useful
+\usepackage{circuitikz} %used for circuit diagrams
+\usepackage{lastpage} %allows us to determine how many total pages there are
+\usepackage{amsfonts, lipsum}
+\usepackage{amsmath,amssymb, amscd,amsbsy, amsthm, enumerate}
+\usepackage{mdframed, titlesec, setspace,verbatim, multicol}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry} %sets the margins
+\usepackage[unicode]{hyperref} %enhanced references
+\usepackage{tikz, pgfplots, xcolor}
+\usepackage{fancyhdr} %creates a fancy header for labeling document/name/date 
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{vwcol}  
+\usepackage{enumitem}
+
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{commentcolour}{rgb}{.00,.245,.0}
+\lstdefinestyle{sharpc}{language=[Sharp]C, tabsize=3, backgroundcolor=\color{backcolour},breaklines=true, basicstyle=\footnotesize, showstringspaces=false, commentstyle=\color{commentcolour}, keywordstyle=\color{blue}}
+\lstset{style=sharpc}
+
+
+%%% Page formatting
+%\setlength{\headsep}{30pt}
+\setlength{\parindent}{25pt}
+\setlength{\textheight}{9in}
+
+%%% Header and Footer Info
+\pagestyle{fancy}
+\fancyhead[L]{{\large SuN Group - GINA}}
+\fancyhead[C]{\today}
+\fancyhead[R]{Name: Antonius Torode}
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{\thepage\ of \pageref{LastPage}}
+
+%%Use these commands to clear the fancyhdr settings and horizontal header line.
+%\fancyhf{} % sets both header and footer to nothing
+%\renewcommand{\headrulewidth}{0pt}
+
+
+%%% This defines the solution environment for you to write your solutions
+\newenvironment{Addition}
+{\let\oldqedsymbol=\qedsymbol
+	\renewcommand{\qedsymbol}{$ $}
+	\begin{proof}[\bfseries\upshape \color{blue}Addition]\color{blue}}
+	{\end{proof}
+	\renewcommand{\qedsymbol}{\oldqedsymbol}}
+
+
+%%% Document Starts now
+\begin{document} 
+
+\begin{center}
+	{\Large Generations of Implanted Nuclear Atrophy (GINA) - Original Calculations}
+\end{center}
+
+\section{Preamble}
+
+This document is to go along with the python code it was written for. For this reason, relevant the code will be attached in code blocks. It is not updated to include references to the GINA program which is the C++ implementation.
+
+\section{Introduction}
+
+The rate of decay of a material is given by
+\begin{align}
+\frac{dN(t)}{dt} = -\lambda N(t) = -\frac{N(t)}{\tau}, \label{nuclear decay}
+\end{align}
+where $N$ is the number of radioactive nuclei, $\lambda$ is the decay constant and $\tau$ is the mean lifetime of the particles within the material. The decay relates to the half life $T_{1/2}$ by
+\begin{align}
+\lambda T_{1/2} = \ln(2) \implies T_{1/2} = \tau \ln(2).
+\end{align} 
+From Eq. \ref{nuclear decay}, we can say
+\begin{align}
+\frac{dN(t')}{N(t')} = -\frac{1}{\tau} dt' \implies \int_{N(t)}^{N(t+\Delta t)} \frac{dN(t')}{N(t')} = -\int_{t}^{t+\Delta t}\frac{1}{\tau} dt' \implies \ln\left[\frac{N(t+\Delta t)}{N(t)}\right] = -\frac{\Delta t}{\tau}. \label{decay integration}
+\end{align}
+We can re-write Eq. \ref{decay integration} in exponential form which gives
+\begin{align}
+N(t+\Delta t)= N(t)e^{-\frac{\Delta t}{\tau}}=N(t)e^{-\frac{\Delta t}{T_{1/2}}\ln(2)} \implies N(\Delta t)=N(0)e^{-\frac{\Delta t}{T_{1/2}}\ln(2)}. \label{exponential decay law}
+\end{align}
+
+
+\section{Analysis - Decays Over Time}
+
+\begin{center}
+	RADIOACTIVE PARTICLE NUMBERS
+\end{center}
+
+Let the superscripts $m$, $d$ and $gd$ denote a mother, daughter and granddaughter (the nuclei the daughter nuclei decays into) nuclei respectively and $T$ represent the total time that has passed. Consider a steady beam that is depositing radioactive particles onto a material at a constant rate of $R(t)$ (particles/second). Initially assume there are no radioactive particles on the material. That is
+\begin{align}
+N^m_0=0 \hspace{2cm} N^d_0=0 \hspace{2cm} N^{gd}_0=0
+\end{align}
+Over some small amount of time\footnote{For sufficiently small $\Delta t$ or $R(t)$, we can neglect the decays that happen between $\Delta t$ time increments.} $\Delta t$ ($T=\Delta t$), the total particles placed on the material will be 
+\begin{align}
+N^m_1=R(t)\Delta t.
+\end{align} 
+None of the radioactive particles will have decayed yet so $N^d_1=0$ and $N^{gd}_1=0$. The mother nuclei may decay into the daughter nuclei at this point but the daughter nuclei will not have yet had a chance to decay and thus $N^{gd}_2=0$. 
+
+\begin{lstlisting}
+#[PYTHON CODE]#
+#Sets the initial conditions. 
+N_m[0]=0
+N_m[1]=R*del_t
+N_d[0]=0
+N_d[1]=0
+N_gd[0]=0
+N_gd[1]=0
+\end{lstlisting}
+
+After another small amount of time $\Delta t$ ($T=2\Delta t$), the total radioactive particles on the material will increase by $R(t)\Delta t$ and decrease by some amount 
+\begin{align}
+N^d_2=D^m_1=N^m_1\left(1-e^{-\frac{\Delta t}{T^m_{1/2}}\ln(2)}\right),
+\end{align} 
+as the radioactive particles decay into the daughter nuclei. Thus, the total radioactive mother nuclei after $T=2\Delta t$ is \begin{align}
+N^m_2=2N^m_1 - N^m_1\left(1-e^{-\frac{\Delta t}{T^m_{1/2}}\ln(2)}\right).
+\end{align}
+After yet another small amount of time $\Delta t$ ($T=3\Delta t$), the total radioactive particles on the material will increase by $N^m_1=R(t)\Delta t$ and decrease by some amount
+\begin{align}
+D^m_2 = N^m_2\left(1-e^{-\frac{\Delta t}{T^m_{1/2}}\ln(2)}\right),
+\end{align} 
+as the radioactive particles decay into the daughter nuclei. At this point, the total number of mother nuclei will be
+\begin{align}
+N^m_3 &= N^m_2+N^m_1-N^m_2\left(1-e^{-\frac{\Delta t}{T^m_{1/2}}\ln(2)}\right) \\
+&= N^m_1+N^m_2e^{-\frac{\Delta t}{T^m_{1/2}}\ln(2)}.
+\end{align}
+At this point, the number of radioactive daughter nuclei will increase by $\Delta N^d_3$ and decrease by some amount based on the decay time. Thus at $T=3\Delta t$ we will have
+\begin{align}
+N^d_3 &= N^d_2+\Delta N^d_3-N^d_2\left(1-e^{-\frac{\Delta t}{T^d_{1/2}}\ln(2)}\right) \\
+&=N^d_2+N^m_2\left(1-e^{-\frac{\Delta t}{T^m_{1/2}}\ln(2)}\right)-N^d_2\left(1-e^{-\frac{\Delta t}{T^d_{1/2}}\ln(2)}\right) \\
+&=N^m_2\left(1-e^{-\frac{\Delta t}{T^m_{1/2}}\ln(2)}\right)+N^d_2e^{-\frac{\Delta t}{T^d_{1/2}}\ln(2)}.
+\end{align}
+At this stage, there will also be daughter nuclei that decay and so 
+\begin{align}
+N^{gd}_3 = N^d_2\left(1-e^{-\frac{\Delta t}{T^d_{1/2}}\ln(2)}\right).
+\end{align}
+For sufficiently large $T^{gd}_{1/2}$, we can ignore any further decays and still maintain a good approximation for our system. At this point, any possible increase/decrease in particles and all possible decays are accounted for. Since we can represent the particle numbers at $T=3\Delta t$ using terms for the previous time steps, we can generalize this to some $T=n\Delta t$ for $n\in\mathbb{N}$ giving
+\begin{align}
+N^m_n &= N^m_1+N^m_{n-1}e^{-\frac{\Delta t}{T^m_{1/2}}\ln(2)} \label{Nm} \\
+N^d_n &= N^m_{n-1}\left(1-e^{-\frac{\Delta t}{T^m_{1/2}}\ln(2)}\right)+N^d_{n-1}e^{-\frac{\Delta t}{T^d_{1/2}}\ln(2)}\label{Nd} \\
+N^{gd}_n &= N^{gd}_{n-1}+N^d_{n-1}\left(1-e^{-\frac{\Delta t}{T^d_{1/2}}\ln(2)}\right). \label{Ngd}
+\end{align}
+These relations can be proven by trivial induction.
+
+\begin{lstlisting}
+#[PYTHON CODE]#
+#Calculation of particle number
+for n in range(2,size):
+	N_m[n]=N_m[1]+N_m[n-1]*np.exp(-del_t*np.log(2)/HL_m)
+	N_d[n]=N_m[n-1]*(1-np.exp(-del_t*np.log(2)/HL_m))+N_d[n-1]*np.exp(-del_t*np.log(2)/HL_d)
+	N_gd[n]=N_gd[n-1]+N_d[n-1]*(1-np.exp(-del_t*np.log(2)/HL_d))
+
+\end{lstlisting}
+
+\begin{Addition}
+	Instead of using m, g and gd for mother, daughter and granddaughter respectively, suppose we allow the superscript to denote the generation as a number, where $(0) \equiv m$, $(1) \equiv d$ and $(2) \equiv gd$ and so on such that $(i)$ would represent the i-th generation. Using this scheme, this process can be generalized for $i$ number of generations as
+	\begin{align}
+	N^{(0)}_n &= N^{(0)}_1+N^{(0)}_{n-1}e^{-\frac{\Delta t}{T^{(0)}_{1/2}}\ln(2)} \label{N0} \\
+	N^{(i)}_n &= N^{(i-1)}_{n-1}\left(1-e^{-\frac{\Delta t}{T^{(i-1)}_{1/2}}\ln(2)}\right)+N^{(i)}_{n-1}e^{-\frac{\Delta t}{T^{(i)}_{1/2}}\ln(2)}.\label{Ni} 
+	\end{align}
+	If we assume the lats stage has a near infinite half life, the limiting case will produce a final step to be equivalent to that of Eq. \ref{Ngd}.
+\end{Addition}
+
+\subsection{Important Relations}
+
+\begin{center}
+	DECAY RATES - METHOD I
+\end{center}
+
+The values $N^m_n$, $N^d_n$ and $N^{gd}_n$ all represent a total number of particles of a specific nuclei. If we are interested in the decays $D$ of the radioactive particles, we can represent them based on the number of particles are present. That is
+\begin{align}
+D^m_n &= N^m_{n}\left(1-e^{-\frac{\Delta t}{T^m_{1/2}}\ln(2)}\right) \\
+D^d_n &= N^d_{n}\left(1-e^{-\frac{\Delta t}{T^d_{1/2}}\ln(2)}\right). 
+\end{align}
+These represent the today decays per unit $\Delta t$. The contamination is then defined as the number of decays the daughter is producing with respect to the number of decays the mother nuclei is producing.
+\begin{align}
+C_n=\frac{D^d_n}{D^m_n} \times 100  \%=\textrm{contamination \%}. \label{contamination}
+\end{align} 
+
+\begin{lstlisting}
+#[PYTHON CODE]#
+#Calculation of decay rate (devided by del_t to make the units per second)
+for n in range(0,size):
+	D_m[n]=N_m[n]*(1-np.exp(-del_t*np.log(2)/HL_m))/del_t
+	D_d[n]=N_d[n]*(1-np.exp(-del_t*np.log(2)/HL_d))/del_t
+	if D_m[n] > 0:
+		C[n]=D_d[n]/D_m[n]*100
+	t[n]=n*del_t
+\end{lstlisting}
+
+\begin{center}
+	DECAY RATES - METHOD II
+\end{center}
+
+An alternate, and nicer method of calculating the decay rate can be found from Eq. \ref{nuclear decay}. By definition this is the decay rate, so using the total particle numbers we calculate in Eq. \ref{Nm} - \ref{Ngd}, we can determined the decay rate (note that we are taking the absolute value because we are interested in the decays per second) as
+\begin{align}
+D^m_n &= \frac{dN^m_n}{dt} = \frac{N^m_n \ln(2)}{T^m_{1/2}} \\
+D^d_n &= \frac{dN^d_n}{dt} = \frac{N^d_n \ln(2)}{T^d_{1/2}}.
+\end{align}
+These represent the today decays per second. Using this method, the contamination will still be calculated in the same way using Eq. \ref{contamination}.
+
+\begin{lstlisting}
+#[PYTHON CODE]#
+#Alternate calculation of decay rate
+for n in range(0,size):
+	D2_m[n]=N_m[n]*np.log(2)/HL_m
+	D2_d[n]=N_d[n]*np.log(2)/HL_d
+	if D2_m[n] > 0:
+		C2[n]=D2_d[n]/D2_m[n]*100
+\end{lstlisting}
+
+\begin{Addition}
+	Begin with the notation from the previous `Addition'. The decay rate for any generation would simply be
+	\begin{align}
+	D^{(i)}_n = \frac{dN^{(i)}_n}{dt} = \frac{N^{(i)}_n \ln(2)}{T^{(i)}_{1/2}}, \label{DecayRate_i}
+	\end{align}
+	and the contamination of the original implant would be given by
+	\begin{align}
+	C_n=\frac{\sum_{k=1}^{\infty}D^{(k)}_n}{D^{(0)}_n} \times 100  \%=\textrm{contamination \%}. \label{contamination_i}
+	\end{align}
+\end{Addition}
+
+\begin{center}
+	BEAM CUTTOFF \& PARTICLE LOSS
+\end{center}
+
+We will introduce a new variable $T_c$ which will represent a cutoff of the beam that is implanting the radioactive particles. After this time, the system will reset and the original system will be instantaneously\footnote{In reality this would not be instantaneous.} moved to a new location. So, when $T=iT_c$ for $i\in\mathbb{N}$, we will have our particle number values reset to zero, and thus
+\begin{align}
+N^m_i = 0 \hspace{2cm} N^d_i =0 \hspace{2cm} N^{gd}_i =0.
+\end{align}
+This will of course occur at the $n$ values such that $n=\frac{iT_c}{\Delta t}$. Let the total particles that have decayed be denoted by $\bar{N}$. The total decayed particles can be determined by
+\begin{align}
+\bar{N}^m_n=N^d_n+N^{gd}_n.
+\end{align}
+The ratio of total particles implanted to the particles that have decayed is then simply
+\begin{align}
+\frac{nN^m_1}{\bar{N}^m_n} = \frac{nN^m_1}{N^d_n+N^{gd}_n}.
+\end{align}
+The deposited implant loss $B^\ell_n$ (representing the total \% of the implanted particles that have been decayed) is then the inverse
+\begin{align}
+B^\ell_n=\frac{\bar{N}^m_n}{nN^m_1}\times 100\% = \frac{N^d_n+N^{gd}_n}{nN^m_1} \times 100\%.
+\end{align}
+The deposited implant health $B^h$ is then the percentage of original implant that still exists and is given simply by
+\begin{align}
+B^h_n = 100 \% - B^\ell_n.
+\end{align}
+\begin{lstlisting}
+#[PYTHON CODE]#
+#Determines the implant loss and Health
+for n in range(1,size):
+	B_l[n] = 100*(N_d[n]+N_gd[n])/(n*N_m[1])
+	B_h[n]=100-P_l[n]
+\end{lstlisting}
+
+\begin{Addition}
+	Considering an arbitrary number of generations, the decayed particles would be given by
+	\begin{align}
+	\bar{N}^{(i)}_n = \sum_{k=i+1}^{\infty} N^{(k)}_n,
+	\end{align} 
+	to which it follows that the implant loss be given by
+	\begin{align}
+	B^\ell_n=\frac{\bar{N}^{(0)}_n}{nN^{(0)}_1}\times 100\% = \frac{1}{nN^{(0)}_1}\sum_{k=1}^{\infty} N^{(k)}_n \times 100\%.
+	\end{align}
+	The implant health would still be given by
+	\begin{align}
+	B^h_n = 100 \% - B^\ell_n.
+	\end{align}
+\end{Addition}
+
+\begin{thebibliography}{9}
+	\bibitem{Beta  Decay} Definition of Beta Decay: http://www2.lbl.gov/abc/wallchart/chapters/03/2.html
+	
+	\bibitem{nndc} Half life values: http://www.nndc.bnl.gov/chart/
+\end{thebibliography}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

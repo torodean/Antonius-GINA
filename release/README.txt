@@ -5,14 +5,40 @@ Release version 1.013
 Author: Antonius Torode
 Created: June 2017
 
-Remove unneccessary files.
+How to remove unneccessary files from build directory.
 find \( -name "moc_*" -or -name "*.o" -or -name "qrc_*" -or -name "Makefile*" -or -name "*.a" \) -exec rm {} \;
 
 Compiled and created using Qt5.9 then deployed (made self-contained) using linuxdeployqt.
 sudo ./linuxdeployqt-continuous-x86_64.AppImage <PATH TO GINA EXECUTABLE>/GINA
 
-For some reason this does not work when <PATH TO GINA EXECUTABLE> == "bin"
+	For some reason this does not work when <PATH TO GINA EXECUTABLE> == "bin"
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Compiling using utilities/GINARelease.sh
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1) First, you must have Qt installed and working
+2) Build and run the program through Qt into a bin/build-GINA-Desktop_Qt_5_9_0_GCC_64bit-Debug folder within the Antonius-GINA folder. 
+3) navigate to the utilities folder and run 
+
+	sudo ./GINARelease.sh
+
+4) The release folder should now contain everything you need for a release version.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Compiling Program from scratch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1) First, you must have Qt installed and working
+2) Build and run the program through Qt
+3) Copy the build directory to another location and put linuxdeployqt-continuous-x86_64.AppImage in the same directory as the build directory.
+4) While in the build directory, run the following commands (leave the name of the build directory as the default created by qt or the linuxdeployqt... may not work)
+
+find \( -name "moc_*" -or -name "*.o" -or -name "qrc_*" -or -name "Makefile*" -or -name "*.a" \) -exec rm {} \;
+rm -r Analysis Images
+cd ../
+./linuxdeployqt-continuous-x86_64.AppImage <NAME OF BUILD DIRECTORY>/GINA
+mv <NAME OF BUILD DIRECTORY> bin
+
+5) Copy bin folder to where you want GINA to be, transfer source code over into a folder named src, and documentation/other files accordingly.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Program Features/Help

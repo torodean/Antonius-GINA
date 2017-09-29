@@ -1,2 +1,0 @@
-\contentsline {chapter}{Generations of Nuclear Atrophy (GINA)}{1}{chapter*.2}
-\contentsline {chapter}{Appendix I: Useful Coding Features}{2}{Appendix*.3}

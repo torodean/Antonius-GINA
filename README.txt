@@ -5,16 +5,27 @@ Release version 1.013
 Author: Antonius Torode
 Created: June 2017
 
-Remove unneccessary files.
+How to remove unneccessary files from build directory.
 find \( -name "moc_*" -or -name "*.o" -or -name "qrc_*" -or -name "Makefile*" -or -name "*.a" \) -exec rm {} \;
 
 Compiled and created using Qt5.9 then deployed (made self-contained) using linuxdeployqt.
 sudo ./linuxdeployqt-continuous-x86_64.AppImage <PATH TO GINA EXECUTABLE>/GINA
 
-For some reason this does not work when <PATH TO GINA EXECUTABLE> == "bin"
+	For some reason this does not work when <PATH TO GINA EXECUTABLE> == "bin"
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Compiling Program
+Compiling using utilities/GINARelease.sh
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1) First, you must have Qt installed and working
+2) Build and run the program through Qt into a bin/build-GINA-Desktop_Qt_5_9_0_GCC_64bit-Debug folder within the Antonius-GINA folder. 
+3) navigate to the utilities folder and run 
+
+	sudo ./GINARelease.sh
+
+4) The release folder should now contain everything you need for a release version.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Compiling Program from scratch
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 1) First, you must have Qt installed and working
 2) Build and run the program through Qt
