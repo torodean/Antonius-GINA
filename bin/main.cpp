@@ -1,5 +1,5 @@
 //==========================================================================
-// GINA (Generations of Implanted Nuclear Atrophy)
+// GINA (Generations of Implanted Nuclear Activity)
 // Michigan State University - National Superconducting Cylotron Laboratory
 // File: main.cpp
 // Created By: Antonius Torode
@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 
     /* Main GINA program */
     GINA window;
-    window.setWindowTitle("GINA - Generations of Implanted Nuclear Atrophy");
+    window.setWindowTitle("GINA - Generations of Implanted Nuclear Activity");
     window.show();
 
 

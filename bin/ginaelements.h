@@ -1,5 +1,5 @@
 //==========================================================================
-// GINA (Generations of Implanted Nuclear Atrophy)
+// GINA (Generations of Implanted Nuclear Activity)
 // Michigan State University - National Superconducting Cylotron Laboratory
 // File: GINAelements.h
 // Created By: Antonius Torode

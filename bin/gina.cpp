@@ -1,5 +1,5 @@
 //==========================================================================
-// GINA (Generations of Implanted Nuclear Atrophy)
+// GINA (Generations of Implanted Nuclear Activity)
 // Michigan State University - National Superconducting Cylotron Laboratory
 // File: gina.cpp
 // Created By: Antonius Torode
@@ -628,7 +628,7 @@ void GINA::on_Gen2Input_textChanged(const QString &arg1){
 //When the About button is clicked, display GINA information.
 void GINA::on_actionAbout_triggered(){
     ui->output->append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    ui->output->append("GINA (Generations of Implanted Nuclear Atrophy)");
+    ui->output->append("GINA (Generations of Implanted Nuclear Activity)");
     ui->output->append("Release version " + VERSION);
     ui->output->append("Author: Antonius Torode");
     ui->output->append("  Michigan State University");
@@ -641,7 +641,7 @@ void GINA::on_actionAbout_triggered(){
 //When the Info button is clicked, display useful GINA information.
 void GINA::on_actionInfo_triggered(){
     ui->output->append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    ui->output->append("GINA (Generations of Implanted Nuclear Atrophy)");
+    ui->output->append("GINA (Generations of Implanted Nuclear Activity)");
     ui->output->append("-----------------------------------------------");
     ui->output->append("The nuclear ion generations is incremented from 0 to n with 0 representing the primary ion, 1 representing the daughter ion, and so forth...");
     ui->output->append("-----------------------------------------------");
@@ -666,7 +666,7 @@ void GINA::on_actionInfo_triggered(){
 //When the Advanced Info button is clicked, display useful Advanced GINA information.
 void GINA::on_actionInfo_Advanced_triggered(){
     ui->output->append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    ui->output->append("GINA (Generations of Implanted Nuclear Atrophy)");
+    ui->output->append("GINA (Generations of Implanted Nuclear Activity)");
     ui->output->append("-----------------------------------------------");
     ui->output->append(" -- The advanced > Show Data feature determines whether data is printed to the debugger window.");
     ui->output->append(" -- Disabling this option will speed up the creation of the graphs but provide less information.");
