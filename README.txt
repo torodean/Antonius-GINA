@@ -1,4 +1,6 @@
-GINA (Generations of Implanted Nuclear Atrophy)
+GINA (Generations of Implanted Nuclear Activity)
+
+Name change occured on Oct 23, 2017 from "... atrophy" to "... activity"
 
 Release version 1.013
 
