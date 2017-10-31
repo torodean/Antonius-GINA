@@ -1,2 +1,8 @@
 \chapter{Generations of Nuclear Activity (GINA)}
 
+GINA(Generations of Implanted Nuclear Activity) is a program designed to work with an experimental tape station. An experimental tape system is a system designed to have some form of tape in which a small portion of the tape acts as a target for radioactive isotopes. At some point, the tape should be able to move such that a different point of the tape becomes the target. 
+
+GINA performs multiple functions related to the radioactive isotopes at the target location. First, GINA calculates the number of radioactive isotopes at a target location based on some initial and constant rate of isotope implantation over some time. Next, GINA uses this information to determine the radioactive decay rates of each isotope at the target. Finally, GINA does a calculation of the contamination on the target relative to the primary isotope. Explanations of these calculations can be found later in this manual.
+
+When a radioactive isotope is implanted on a target, it may naturally decay into some daughter isotope. The daughter isotope may then decay into a granddaughter isotope and so on. Because of this, GINA takes the half-lives of the primary isotope and each generation isotope up to four isotopes as initial input values. These are what is used to perform the calculations described in the above paragraph.
+
