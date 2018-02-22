@@ -18,6 +18,8 @@ private:
 
 public:
     GINAfit();
+
+    int numOfDecays;
     std::vector<double> xData(std::vector<std::string> data);
     std::vector<double> yData(std::vector<std::string> data);
     std::vector<std::string> data(std::string filename);

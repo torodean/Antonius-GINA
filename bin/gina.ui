@@ -583,6 +583,7 @@
     </property>
     <addaction name="actionPrint_Data"/>
     <addaction name="actionHide_Graphs"/>
+    <addaction name="actionFit_Decay_Curve"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -746,6 +747,11 @@
    </property>
    <property name="text">
     <string>Hide Graphs</string>
+   </property>
+  </action>
+  <action name="actionFit_Decay_Curve">
+   <property name="text">
+    <string>Fit Decay Curve</string>
    </property>
   </action>
  </widget>

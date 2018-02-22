@@ -52,6 +52,7 @@ public:
     QAction *actionPrint_Data;
     QAction *actionInfo_Advanced;
     QAction *actionHide_Graphs;
+    QAction *actionFit_Decay_Curve;
     QWidget *centralWidget;
     QPushButton *Analyze;
     QPushButton *Reset;
@@ -161,6 +162,8 @@ public:
         actionHide_Graphs = new QAction(GINA);
         actionHide_Graphs->setObjectName(QStringLiteral("actionHide_Graphs"));
         actionHide_Graphs->setCheckable(true);
+        actionFit_Decay_Curve = new QAction(GINA);
+        actionFit_Decay_Curve->setObjectName(QStringLiteral("actionFit_Decay_Curve"));
         centralWidget = new QWidget(GINA);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         Analyze = new QPushButton(centralWidget);
@@ -322,6 +325,7 @@ public:
         menuSet_Y_Ticks->addAction(action11);
         menuOptions->addAction(actionPrint_Data);
         menuOptions->addAction(actionHide_Graphs);
+        menuOptions->addAction(actionFit_Decay_Curve);
 
         retranslateUi(GINA);
 
@@ -353,6 +357,7 @@ public:
         actionPrint_Data->setText(QApplication::translate("GINA", "Print Data", Q_NULLPTR));
         actionInfo_Advanced->setText(QApplication::translate("GINA", "Advanced Info", Q_NULLPTR));
         actionHide_Graphs->setText(QApplication::translate("GINA", "Hide Graphs", Q_NULLPTR));
+        actionFit_Decay_Curve->setText(QApplication::translate("GINA", "Fit Decay Curve", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         Analyze->setToolTip(QApplication::translate("GINA", "Analyzes the data over time.", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
