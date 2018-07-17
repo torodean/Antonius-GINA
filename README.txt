@@ -1,6 +1,11 @@
 GINA (Generations of Implanted Nuclear Activity)
 
-Name change occured on Oct 23, 2017 from "... atrophy" to "... activity"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~ IMPORTANT ~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+My computer died shortly after creating a working version of GINA.
+I was able to recover my data but I no longer have a working linux development laptop.
+Therefore further changes have not been made.
 
 Release version 1.013
 
@@ -70,3 +75,8 @@ For extended explanations and derivations of the equations used, see the program
 -----------------------------------------------
  -- The advanced > Hide Graphs feature determines whether graphs are produced by GINA upon analysis.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+damageControl.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This file calculates the particle numbers and decays rates of a target point after it has been rotated away from the implantation point. See the file for more information.
