@@ -3,7 +3,7 @@
 # Author      : Antonius Torode
 # Copyright   : This file can be used under the conditions of Antonius' 
 #				 General Purpose License (AGPL).
-# Description : MIA main Program Interface and Runner.
+# Description : Extended functionality for GINA.
 #============================================================================
 # 
 # This file is designed to be used with an output file of GINA.
